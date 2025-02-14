@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>唐煊赫 - 个人简历</title>
+    <!-- 引入Font Awesome图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            border: 3px solid #2c3e50;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+
+        .contact-info a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .section {
+            margin: 2rem 0;
+        }
+
+        h2 {
+            color: #3498db;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .item {
+            margin: 1.5rem 0;
+        }
+
+        .item h3 {
+            color: #2c3e50;
+            margin-bottom: 0.3rem;
+        }
+
+        .date {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .skill {
+            background: #ecf0f1;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem;
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 头部信息 -->
+        <div class="header">
+            <img src="https://via.placeholder.com/150" alt="头像" class="avatar"> <!-- 替换为你的头像链接 -->
+            <h1>张三</h1>
+            <div class="contact-info">
+                <a href="tel:+8613800000000"><i class="fas fa-phone"></i> 138-0000-0000</a>
+                <a href="mailto:yourname@email.com"><i class="fas fa-envelope"></i> yourname@email.com</a>
+                <a href="https://github.com/yourusername" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+            </div>
+        </div>
+
+        <!-- 教育背景 -->
+        <div class="section">
+            <h2><i class="fas fa-graduation-cap"></i> 教育背景</h2>
+            <div class="item">
+                <h3>浙江大学 - 国际商务（研一在读）</h3>
+                <div class="date">2019.09 - 2023.06</div>
+                <p>GPA: 专业排名前5%</p>
+            </div>
+        </div>
+
+        <!-- 工作经历 -->
+        <div class="section">
+            <h2><i class="fas fa-briefcase"></i> 工作经历</h2>
+            <div class="item">
+                <h3>杭州寰宇未来科技有限公司 - 跨境电商部主管</h3>
+                <div class="date">2024.01 - 2024.09</div>
+                <ul>
+                    <li>1. 账号测试：一周内完成养号、垂类测试等起新号流程，从10余个测试号中跑出平均场观200+的主账号</li>
+                    <li>2. 环境搭建：完成shopiy独立站产品上架、支付链路搭建、官邮和fb私域群组组建，策划引流品促销活动10余场</li>
+                    <li>3. 促销活动：操盘母亲节大促，新号GMV突破$1w，环比增速200%+，独立站访问量单日破300，私域转化率超55%</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 技能 -->
+        <div class="section">
+            <h2><i class="fas fa-code"></i> 技术技能</h2>
+            <div class="skills">
+                <span class="skill">英  语  TEM-8（良好） TEM-4（优秀） IELTS（6.5）</span>
+                <span class="skill">AI工具 熟练使用Deepseek（R1）进行迭代分析、数据评测、辅助编程和项目开发，了解大模型、智能体、Agent派生AI技术</span>
+                <span class="skill">建模编程 熟练使用 Ms Office、VBA、Python、Tableau、Arena等软件,曾运用Google Analytics编程应用商业分析脚本</span>
+                <span class="skill">法  语  DELF（B1）</span>
+                <span class="skill">自媒体  tiktok ID:Frank Tongue（follower:1731）发布30+条非遗漆扇、汉语教学 短视频，吸引超20名海外客户独立站下单</span>
+            </div>
+        </div>
+
+        <!-- 项目 -->
+        <div class="section">
+            <h2><i class="fas fa-project-diagram"></i> 项目展示</h2>
+            <div class="item">
+                <h3>在线简历生成器（个人项目）</h3>
+                <ul>
+                    <li>技术栈：React + TypeScript + Ant Design</li>
+                    <li>实现功能：PDF导出、多模板切换、数据本地存储</li>
+                    <li>项目地址：<a href="#">github.com/resume-generator</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
