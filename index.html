@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>张三 - 个人简历</title>
+    <!-- 引入Font Awesome图标 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: white;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            border: 3px solid #2c3e50;
+        }
+
+        h1 {
+            color: #2c3e50;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin: 1rem 0;
+            flex-wrap: wrap;
+        }
+
+        .contact-info a {
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .section {
+            margin: 2rem 0;
+        }
+
+        h2 {
+            color: #3498db;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .item {
+            margin: 1.5rem 0;
+        }
+
+        .item h3 {
+            color: #2c3e50;
+            margin-bottom: 0.3rem;
+        }
+
+        .date {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .skill {
+            background: #ecf0f1;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .container {
+                margin: 1rem;
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 头部信息 -->
+        <div class="header">
+            <img src="https://via.placeholder.com/150" alt="头像" class="avatar"> <!-- 替换为你的头像链接 -->
+            <h1>张三</h1>
+            <div class="contact-info">
+                <a href="tel:+8613800000000"><i class="fas fa-phone"></i> 138-0000-0000</a>
+                <a href="mailto:yourname@email.com"><i class="fas fa-envelope"></i> yourname@email.com</a>
+                <a href="https://github.com/yourusername" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+            </div>
+        </div>
+
+        <!-- 教育背景 -->
+        <div class="section">
+            <h2><i class="fas fa-graduation-cap"></i> 教育背景</h2>
+            <div class="item">
+                <h3>XX大学 - 计算机科学与技术（本科）</h3>
+                <div class="date">2019.09 - 2023.06</div>
+                <p>GPA: 3.8/4.0 | 专业排名前5%</p>
+            </div>
+        </div>
+
+        <!-- 工作经历 -->
+        <div class="section">
+            <h2><i class="fas fa-briefcase"></i> 工作经历</h2>
+            <div class="item">
+                <h3>XX科技有限公司 - 前端开发工程师</h3>
+                <div class="date">2023.07 - 至今</div>
+                <ul>
+                    <li>主导开发公司官网重构，用户停留时长提升30%</li>
+                    <li>使用Vue3实现数据可视化大屏，支持10万级数据实时展示</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 技能 -->
+        <div class="section">
+            <h2><i class="fas fa-code"></i> 技术技能</h2>
+            <div class="skills">
+                <span class="skill">HTML5/CSS3</span>
+                <span class="skill">JavaScript (ES6+)</span>
+                <span class="skill">Vue.js</span>
+                <span class="skill">Node.js</span>
+                <span class="skill">Git</span>
+                <span class="skill">Webpack</span>
+            </div>
+        </div>
+
+        <!-- 项目 -->
+        <div class="section">
+            <h2><i class="fas fa-project-diagram"></i> 项目展示</h2>
+            <div class="item">
+                <h3>在线简历生成器（个人项目）</h3>
+                <ul>
+                    <li>技术栈：React + TypeScript + Ant Design</li>
+                    <li>实现功能：PDF导出、多模板切换、数据本地存储</li>
+                    <li>项目地址：<a href="#">github.com/resume-generator</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
