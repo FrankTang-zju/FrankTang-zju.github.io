@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>接入产品辨析 · OLT / ONU / ODN / OTN 一页看懂</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    color:#0d2233;background:#f3f7fb;line-height:1.8;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1060px;margin:0 auto;padding:0 20px 90px;}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    background:linear-gradient(140deg,#0a1f35 0%,#123f66 50%,#0c6b72 100%);
+    color:#fff;padding:76px 20px 66px;position:relative;overflow:hidden;
+  }
+  .hero::before{
+    content:"";position:absolute;right:-160px;bottom:-160px;width:520px;height:520px;
+    border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.10),transparent 70%);
+  }
+  .hero-inner{max-width:1060px;margin:0 auto;position:relative;z-index:1;}
+  .kicker{font-size:12px;letter-spacing:.26em;color:#7fd4dc;font-weight:700;margin-bottom:16px;}
+  .hero h1{font-size:clamp(34px,5.5vw,56px);line-height:1.15;font-weight:850;letter-spacing:.01em;}
+  .hero h1 span{
+    background:linear-gradient(90deg,#fff,#8ee6ee);
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .hero p{margin-top:18px;font-size:15.5px;color:#c6ddec;max-width:640px;}
+
+  /* ---------- QUESTION CARD ---------- */
+  .qcard{
+    background:#fff;border-radius:20px;padding:34px 36px;margin-top:-34px;
+    box-shadow:0 12px 40px rgba(10,31,53,.12);border:1px solid #e2ecf5;position:relative;z-index:2;
+  }
+  .qtag{display:inline-block;font-size:11.5px;font-weight:800;letter-spacing:.14em;
+    color:#0c6b72;background:#e0f5f2;padding:4px 12px;border-radius:999px;margin-bottom:14px;}
+  .qtext{font-size:17px;font-weight:750;color:#0d2233;margin-bottom:8px;}
+  .opts{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 22px;}
+  .opt{
+    font-size:15px;font-weight:800;padding:10px 20px;border-radius:12px;
+    background:#f1f6fb;color:#5a7a94;border:1.5px solid #dbe8f2;letter-spacing:.04em;
+  }
+  .opt.yes{background:#0c6b72;color:#fff;border-color:#0c6b72;}
+  .answer-line{display:flex;align-items:center;gap:10px;font-size:15px;font-weight:700;color:#0c6b72;}
+  .answer-line .ic{width:26px;height:26px;border-radius:50%;background:#0c6b72;color:#fff;
+    display:grid;place-items:center;font-size:14px;flex:0 0 auto;}
+  .answer-note{font-size:13.5px;color:#6b8499;margin-top:8px;font-weight:400;}
+
+  /* ---------- SECTION ---------- */
+  section{background:#fff;border-radius:20px;padding:34px 36px;margin-top:24px;
+    box-shadow:0 2px 12px rgba(13,34,51,.05);border:1px solid #e5eef6;}
+  .sec-h{display:flex;align-items:center;gap:13px;margin-bottom:6px;}
+  .num{flex:0 0 auto;width:32px;height:32px;border-radius:9px;display:grid;place-items:center;
+    font-size:14px;font-weight:850;color:#fff;background:linear-gradient(135deg,#1668c4,#0c6b72);}
+  h2{font-size:20.5px;font-weight:820;letter-spacing:.01em;}
+  .lead{color:#57748c;font-size:14.5px;margin:4px 0 22px;}
+
+  /* ---------- SVG ---------- */
+  .fig{overflow-x:auto;padding-bottom:4px;}
+  .fig svg{width:100%;min-width:700px;height:auto;display:block;}
+  .fig-cap{font-size:12.5px;color:#8ba3b7;text-align:center;margin-top:12px;}
+
+  .lbl{font-size:13px;font-weight:800;fill:#0d2233;text-anchor:middle;}
+  .lbl-w{font-size:12px;font-weight:700;fill:#fff;text-anchor:middle;}
+  .sub{font-size:10.5px;fill:#6b8499;text-anchor:middle;}
+  .sub-w{font-size:9.5px;fill:rgba(255,255,255,.8);text-anchor:middle;}
+  .grp{fill:#f8fbfe;stroke:#cddfef;stroke-width:1.5;}
+  .solid{stroke:#1668c4;stroke-width:2.6;fill:none;}
+  .dash{stroke:#e0a33d;stroke-width:2.2;stroke-dasharray:7 5;fill:none;}
+
+  /* ---------- 设备卡片 ---------- */
+  .dev-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:6px;}
+  .dev{border-radius:16px;padding:20px;border:1px solid #e0ebf4;background:#fafdff;}
+  .dev .badge{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.1em;
+    padding:3px 10px;border-radius:6px;margin-bottom:10px;}
+  .dev.a .badge{background:#e8f1fb;color:#1668c4;}
+  .dev.b .badge{background:#e0f5f2;color:#0c6b72;}
+  .dev.c .badge{background:#fdf3e1;color:#b37a12;}
+  .dev h3{font-size:15.5px;font-weight:800;margin-bottom:6px;}
+  .dev p{font-size:13.5px;color:#5c7d99;}
+
+  /* ---------- OTN 对照 ---------- */
+  .vs{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:6px;}
+  .vs-col{border-radius:16px;padding:22px;border:1.5px solid;}
+  .vs-col.left{background:#eef4fb;border-color:#b9d2e8;}
+  .vs-col.right{background:#e8f7f4;border-color:#8fd3c8;}
+  .vs-col h3{font-size:15.5px;font-weight:800;margin-bottom:10px;}
+  .vs-col.left h3{color:#12467f;}
+  .vs-col.right h3{color:#0b6b60;}
+  .vs-col ul{padding-left:17px;font-size:13.5px;color:#44647d;}
+  .vs-col li{margin-bottom:6px;}
+
+  /* ---------- 表格 ---------- */
+  table{width:100%;border-collapse:separate;border-spacing:0;font-size:14px;margin-top:6px;}
+  th{background:#f0f5fa;color:#12467f;font-weight:800;font-size:12.5px;letter-spacing:.06em;
+    padding:12px 14px;text-align:left;border-bottom:1px solid #dbe8f2;}
+  th:first-child{border-radius:10px 0 0 0;}
+  th:last-child{border-radius:0 10px 0 0;}
+  td{padding:13px 14px;border-bottom:1px solid #edf3f8;color:#35566f;vertical-align:top;}
+  tr:last-child td{border-bottom:none;}
+  td strong{color:#0d2233;}
+  .tag-yes{display:inline-block;font-size:11.5px;font-weight:800;padding:2px 9px;border-radius:6px;
+    background:#e0f5f2;color:#0c6b72;}
+  .tag-no{display:inline-block;font-size:11.5px;font-weight:800;padding:2px 9px;border-radius:6px;
+    background:#fdf0e6;color:#b37a12;}
+  .tag-cond{display:inline-block;font-size:11.5px;font-weight:800;padding:2px 9px;border-radius:6px;
+    background:#eef0fd;color:#4f5db8;}
+
+  /* ---------- 总结条 ---------- */
+  .takeaway{
+    margin-top:24px;border-radius:16px;padding:22px 26px;
+    background:linear-gradient(135deg,#f0f9f8,#e8f4fb);border:1.5px solid #b9dce4;
+    font-size:14.5px;color:#1b4a5e;
+  }
+  .takeaway b{color:#0c6b72;}
+
+  footer{text-align:center;font-size:12.5px;color:#9ab0c4;padding:36px 0 6px;}
+
+  @media (max-width:720px){
+    .qcard{padding:26px 20px;}
+    section{padding:24px 20px;border-radius:16px;}
+    .vs{grid-template-columns:1fr;}
+    .hero{padding:56px 20px 52px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+    <p class="kicker">光接入网 · 设备辨析</p>
+    <h1>OLT、ONU、ODN<br><span>为什么是接入产品，而 OTN 通常不是？</span></h1>
+    <p>一道选择题背后，是光网络“接入”与“传送”两个层次的分工逻辑。</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- 题目 -->
+  <div class="qcard">
+    <span class="qtag">原题回顾</span>
+    <p class="qtext">下列设备形态属于接入产品的是哪些？</p>
+    <div class="opts">
+      <span class="opt yes">ODN ✓</span>
+      <span class="opt yes">ONU ✓</span>
+      <span class="opt">OTN</span>
+      <span class="opt yes">OLT ✓</span>
+    </div>
+    <div class="answer-line">
+      <span class="ic">✓</span>
+      <span>正确答案：ODN、ONU、OLT</span>
+    </div>
+    <p class="answer-note">OTN 的底色是“传送网”，通常不算标准接入产品。只有被专门标注为“接入型 OTN”的设备，才在部署形态上扮演接入角色。</p>
+  </div>
+
+  <!-- 1 PON 三元结构 -->
+  <section>
+    <div class="sec-h"><div class="num">1</div><h2>核心线索：PON 的三元结构</h2></div>
+    <p class="lead">
+      OLT、ODN、ONU 之所以被归为接入产品，不是因为它们各自孤立存在，而是因为它们共同构成了一套完整的光接入系统——PON（无源光网络）。
+    </p>
+
+    <div class="fig">
+      <svg viewBox="0 0 940 310" role="img" aria-label="PON 三元结构示意图：OLT、ODN、ONU">
+        <defs>
+          <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5"
+                  markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+            <path d="M0,0 L10,5 L0,10 z" fill="#e0a33d"/>
+          </marker>
+        </defs>
+
+        <!-- OLT -->
+        <rect x="20" y="95" width="190" height="120" rx="16" fill="#1668c4"/>
+        <text class="lbl-w" x="115" y="146" font-size="22" font-weight="850">OLT</text>
+        <text class="lbl-w" x="115" y="168" font-size="11">光线路终端</text>
+        <text class="sub-w" x="115" y="188">局端机房 · 汇聚设备</text>
+
+        <!-- ODN 区域 -->
+        <rect class="grp" x="300" y="55" width="330" height="200" rx="18"/>
+        <text x="465" y="82" font-size="13" font-weight="800" fill="#b37a12" text-anchor="middle">ODN 光分配网络</text>
+        <text x="465" y="100" font-size="10.5" fill="#8a7a55" text-anchor="middle">全部由无源器件构成 · 无需供电</text>
+
+        <!-- 馈线光纤 -->
+        <line class="dash" x1="210" y1="155" x2="330" y2="155"/>
+        <text x="270" y="144" font-size="10" fill="#b37a12" text-anchor="middle">馈线光纤</text>
+
+        <!-- 分光器 -->
+        <polygon points="360,135 390,135 405,155 390,175 360,175 345,155"
+                 fill="#fdf3e1" stroke="#e0a33d" stroke-width="1.8"/>
+        <text x="375" y="159" font-size="10" fill="#b37a12" text-anchor="middle" font-weight="800">分光器</text>
+
+        <!-- 分支光纤 -->
+        <line class="dash" x1="405" y1="140" x2="540" y2="105"/>
+        <line class="dash" x1="405" y1="155" x2="540" y2="155"/>
+        <line class="dash" x1="405" y1="170" x2="540" y2="205"/>
+        <text x="475" y="240" font-size="10" fill="#b37a12" text-anchor="middle">分支光纤（1 分多）</text>
+
+        <!-- ONU 1 -->
+        <rect x="555" y="80" width="130" height="56" rx="12" fill="#0c6b72"/>
+        <text class="lbl-w" x="620" y="105" font-size="14" font-weight="850">ONU</text>
+        <text class="sub-w" x="620" y="122">用户侧</text>
+
+        <!-- ONU 2 -->
+        <rect x="555" y="128" width="130" height="56" rx="12" fill="#0c6b72"/>
+        <text class="lbl-w" x="620" y="153" font-size="14" font-weight="850">ONU</text>
+        <text class="sub-w" x="620" y="170">用户侧</text>
+
+        <!-- ONU 3 -->
+        <rect x="555" y="176" width="130" height="56" rx="12" fill="#0c6b72"/>
+        <text class="lbl-w" x="620" y="201" font-size="14" font-weight="850">ONU</text>
+        <text class="sub-w" x="620" y="218">用户侧</text>
+
+        <!-- 向上 -->
+        <line class="solid" x1="115" y1="95" x2="115" y2="50"/>
+        <polygon points="115,42 109,56 121,56" fill="#1668c4"/>
+        <text x="115" y="34" font-size="11" fill="#1668c4" text-anchor="middle" font-weight="700">向上汇聚 / 城域网</text>
+
+        <!-- 向下 -->
+        <line class="solid" x1="685" y1="105" x2="730" y2="105"/>
+        <text x="745" y="109" font-size="11" fill="#0c6b72" font-weight="700">→ 用户终端</text>
+      </svg>
+    </div>
+    <p class="fig-cap">PON 是“点到多点”的光接入系统：OLT 在局端，ODN 在中间做无源分光，ONU 到用户侧。</p>
+
+    <div class="dev-grid">
+      <div class="dev a">
+        <span class="badge">局端</span>
+        <h3>OLT：接入网的“局端锚点”</h3>
+        <p>部署在运营商机房，是 PON 协议在局端的终结点，负责汇聚众多用户流量并向上连接到城域网。华为官方将其归入“接入网”产品线[reference:0]。</p>
+      </div>
+      <div class="dev b">
+        <span class="badge">用户侧</span>
+        <h3>ONU：接入网的“用户门户”</h3>
+        <p>部署在用户家中或企业内，把光纤中的光信号转换成电信号，提供以太网、语音等用户接口。它就是普通人熟悉的“光猫”的专业名称。</p>
+      </div>
+      <div class="dev c">
+        <span class="badge">中间层</span>
+        <h3>ODN：接入网的“无源骨架”</h3>
+        <p>由光纤、光分路器、光交接箱等无源器件组成，不含任何有源电子设备。它的“无源”属性是 PON 区别于有源接入的本质特征[reference:3]。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2 为什么 OLT/ONU/ODN 是接入产品 -->
+  <section>
+    <div class="sec-h"><div class="num">2</div><h2>判定标准：它们在网络中“站什么位置”</h2></div>
+    <p class="lead">
+      接入产品的本质，是位于用户与运营商网络之间的“最后一公里”基础设施。OLT、ONU、ODN 三者合在一起，恰好完整覆盖了这一段。
+    </p>
+
+    <table>
+      <thead>
+        <tr><th>设备</th><th>部署位置</th><th>在 PON 中的角色</th><th>为什么是接入产品</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>OLT</strong></td>
+          <td>运营商局端机房（中心局 / 接入机房）</td>
+          <td>PON 的局端终结点，汇聚用户流量并向上连接城域网</td>
+          <td>它是“用户侧到网络侧”的接入汇聚边界，华为接入网产品线明确包含 OLT[reference:5]</td>
+        </tr>
+        <tr>
+          <td><strong>ONU</strong></td>
+          <td>用户家中、企业内或楼宇侧</td>
+          <td>PON 的用户侧终结点，提供用户接口</td>
+          <td>直接面向最终用户，是接入网在用户端的落地设备</td>
+        </tr>
+        <tr>
+          <td><strong>ODN</strong></td>
+          <td>OLT 与 ONU 之间的光缆线路与分光设施</td>
+          <td>提供 OLT 与 ONU 之间的无源光通道</td>
+          <td>不包含有源设备，是接入网专有的无源基础设施</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="fig" style="margin-top:26px;">
+      <svg viewBox="0 0 900 130" role="img" aria-label="接入网与传送网的分界示意">
+        <rect x="10" y="35" width="230" height="60" rx="12" fill="#e8f1fb" stroke="#a9cdec" stroke-width="1.5"/>
+        <text x="125" y="60" font-size="13" font-weight="800" fill="#12467f" text-anchor="middle">用户侧</text>
+        <text x="125" y="80" font-size="10.5" fill="#57748c" text-anchor="middle">家庭 / 企业</text>
+
+        <rect x="260" y="20" width="380" height="90" rx="14" fill="#0c6b72"/>
+        <text x="450" y="52" font-size="14" font-weight="850" fill="#fff" text-anchor="middle">接入网（Access）</text>
+        <text x="450" y="74" font-size="11" fill="rgba(255,255,255,.85)" text-anchor="middle">OLT · ODN · ONU</text>
+        <text x="450" y="92" font-size="10" fill="rgba(255,255,255,.7)" text-anchor="middle">“最后一公里”</text>
+
+        <rect x="660" y="35" width="230" height="60" rx="12" fill="#eef4fb" stroke="#b9d2e8" stroke-width="1.5"/>
+        <text x="775" y="60" font-size="13" font-weight="800" fill="#12467f" text-anchor="middle">城域网 / 骨干网</text>
+        <text x="775" y="80" font-size="10.5" fill="#57748c" text-anchor="middle">传送 / 汇聚</text>
+
+        <line x1="240" y1="65" x2="260" y2="65" stroke="#0c6b72" stroke-width="2.5"/>
+        <line x1="640" y1="65" x2="660" y2="65" stroke="#0c6b72" stroke-width="2.5"/>
+      </svg>
+    </div>
+    <p class="fig-cap">OLT、ODN、ONU 合起来正好占据“接入网”这一段；再往右，就进入传送与汇聚的地盘。</p>
+  </section>
+
+  <!-- 3 OTN 的定位 -->
+  <section>
+    <div class="sec-h"><div class="num">3</div><h2>OTN 为什么通常不算：它的底色是“传送”</h2></div>
+    <p class="lead">
+      OTN（光传送网）与 OLT/ONU 并不在同一张“用途地图”上。OTN 的核心使命是<b>大带宽、长距离的传送与承载</b>，传统定位在骨干层和城域汇聚层。
+    </p>
+
+    <div class="vs">
+      <div class="vs-col left">
+        <h3>OTN（标准定位）</h3>
+        <ul>
+          <li>属于<b>传送网</b>技术，主要应用于骨干层和城域网[reference:9]。</li>
+          <li>解决的是“把大量流量从 A 传送到 B”的问题。</li>
+          <li>与 OLT/ONU 的“用户接入”使命不在同一层次。</li>
+        </ul>
+      </div>
+      <div class="vs-col right">
+        <h3>接入型 OTN（例外）</h3>
+        <ul>
+          <li>是功能简化的 OTN 设备，被<b>下沉</b>部署到接入汇聚层或客户端[reference:10]。</li>
+          <li>用于政企专线等场景，在部署形态上扮演“接入”角色。</li>
+          <li>但它是“OTN 技术向接入侧的延伸”，而不是 OLT/ONU 那类原生接入产品。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="takeaway">
+      <b>一句话记住区别：</b>OLT、ONU、ODN 是接入网的“原住民”；OTN 是传送网的“原住民”，只有当它被特意做成“接入型 OTN”并下沉到边缘时，才临时扮演接入角色。题目问的是标准接入产品，所以 OTN 不在答案里。
+    </div>
+  </section>
+
+  <!-- 4 速查表 -->
+  <section>
+    <div class="sec-h"><div class="num">4</div><h2>速查：四个设备的归属</h2></div>
+    <p class="lead">做分类题时，抓住“接入网原生”这个关键词就够了。</p>
+
+    <table>
+      <thead>
+        <tr><th>设备</th><th>技术归属</th><th>典型部署位置</th><th>属于接入产品？</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>ODN</strong></td>
+          <td>PON 无源光分配网络</td>
+          <td>OLT 与 ONU 之间的线路与分光设施</td>
+          <td><span class="tag-yes">是</span></td>
+        </tr>
+        <tr>
+          <td><strong>ONU</strong></td>
+          <td>PON 用户侧终端</td>
+          <td>用户家中 / 企业内</td>
+          <td><span class="tag-yes">是</span></td>
+        </tr>
+        <tr>
+          <td><strong>OLT</strong></td>
+          <td>PON 局端汇聚设备</td>
+          <td>运营商接入机房 / 中心局</td>
+          <td><span class="tag-yes">是</span></td>
+        </tr>
+        <tr>
+          <td><strong>OTN</strong></td>
+          <td>光传送网</td>
+          <td>骨干层 / 城域汇聚层（标准形态）</td>
+          <td><span class="tag-no">否（标准形态）</span> <span class="tag-cond">接入型 OTN 例外</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="dev-grid" style="margin-top:22px;">
+      <div class="dev a">
+        <h3>OLT 的实物印象</h3>
+        <p>通常是机房里的机架式设备，插板式结构，面板上密集排列着光纤接口。你家的“光猫”最终汇聚到它这里。</p>
+      </div>
+      <div class="dev b">
+        <h3>ONU 的实物印象</h3>
+        <p>就是普通人家里那个带几根天线或几个网口的小盒子——“光猫”。它把光纤信号转换成 Wi-Fi 或网线信号供设备使用。</p>
+      </div>
+      <div class="dev c">
+        <h3>ODN 的实物印象</h3>
+        <p>不是一台“设备”，而是一整套无源设施：楼道光交箱、路边分纤箱、 ceiling 里的分光器、以及连接它们的光缆。</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>光接入网 · 设备分类速览</footer>
+</div>
+
+</body>
+</html>
